@@ -46,7 +46,8 @@
  
  4. Run the below command in project root directory to start the server
  
- ``` go run ./cmd/api     
+ ```
+      go run ./cmd/api     
  ```
  
  
