@@ -1,5 +1,5 @@
 # Password-Manager-Go
- Password manager backend API build using Golang and POSTGRESQL.
+ Password manager backend API built using Golang and POSTGRESQL.
  
  # Features
  - Lets users sign up with username and password combination
