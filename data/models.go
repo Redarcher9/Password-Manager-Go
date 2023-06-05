@@ -32,32 +32,24 @@ func ConnectDB() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	dbInstance = db
-	rows, err := dbInstance.Query("SELECT * FROM users")
+	err = db.Ping()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer rows.Close()
-	var userID int
-	var username string
-	var pass string
-	for rows.Next() {
-		err := rows.Scan(&userID, &username, &pass)
-		if err != nil {
-			log.Println(err)
-		}
-		fmt.Println(userID, username, pass)
-	}
+	dbInstance = db
+}
+
+func CloseDB() {
+	defer dbInstance.Close()
 }
 
 func SignUp(username string, password string) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 19)
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Print(err)
 	}
 	encryptedPass := string(bytes)
-	_, userError := dbInstance.Query("Select * from users where username='($1)'", username)
-	fmt.Println(userError)
+	_, userError := dbInstance.Query("Select * from users where username=($1)", username)
 	if userError != nil {
 		fmt.Println(userError)
 	} else {
@@ -80,8 +72,11 @@ func Login(username string, password string) bool {
 		if err != nil {
 			log.Println(err)
 		}
+		fmt.Println(pass)
 	}
 	if error == nil {
+		fmt.Println([]byte(pass))
+		fmt.Println([]byte(password))
 		err := bcrypt.CompareHashAndPassword([]byte(pass), []byte(password))
 		if err == nil {
 			return true

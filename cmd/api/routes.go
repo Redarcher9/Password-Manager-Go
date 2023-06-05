@@ -17,5 +17,6 @@ func setupRouter() *gin.Engine {
 	r.POST("/credentials", handlers.AddCredsHandler())
 	r.DELETE("/credentials", handlers.DeleteCredsHandler())
 	r.PUT("/credentials", handlers.UpdateCredsHandler())
+	r.POST("/login", handlers.LoginHandler2())
 	return r
 }
