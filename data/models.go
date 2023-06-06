@@ -72,11 +72,8 @@ func Login(username string, password string) bool {
 		if err != nil {
 			log.Println(err)
 		}
-		fmt.Println(pass)
 	}
 	if error == nil {
-		fmt.Println([]byte(pass))
-		fmt.Println([]byte(password))
 		err := bcrypt.CompareHashAndPassword([]byte(pass), []byte(password))
 		if err == nil {
 			return true

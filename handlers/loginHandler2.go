@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"net/http"
-	"password-manager/data"
+	"password-manager/datastore"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +20,7 @@ func LoginHandler2() gin.HandlerFunc {
 			return
 		}
 		//authenticate with the database
-		loginResult := data.Login(u.Username, u.Password)
+		loginResult := datastore.Login(u.Username, u.Password)
 		if loginResult {
 			c.JSON(http.StatusOK, gin.H{
 				"status": "Login Successful",
